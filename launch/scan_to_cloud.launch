@@ -1,0 +1,23 @@
+<launch>
+	<node pkg="point_cloud_converter" name="scan_to_cloud_node1" type="scan_to_cloud_node" output="screen">
+		<param name="world_frame" value="map"/>
+		<!-- <param name="scan_beam_topic" value="/front/scan"/> -->
+		<param name="scan_beam_topic" value="/scan"/> <!-- For Grizzly -->
+		<param name="pcl_topic" value="lidar_pcl"/> 
+	</node>
+<!-- 	<node pkg="point_cloud_converter" name="scan_to_cloud_node2" type="scan_to_cloud_node" >
+		<param name="world_frame" value="map"/>
+		<param name="scan_beam_topic" value="scan_beam_2"/>
+		<param name="pcl_topic" value="lidar_pcl"/>
+	</node>
+	<node pkg="point_cloud_converter" name="scan_to_cloud_node3" type="scan_to_cloud_node" >
+		<param name="world_frame" value="map"/>
+		<param name="scan_beam_topic" value="scan_beam_3"/>
+		<param name="pcl_topic" value="lidar_pcl"/>
+	</node>
+	<node pkg="point_cloud_converter" name="scan_to_cloud_node4" type="scan_to_cloud_node" >
+		<param name="world_frame" value="map"/>
+		<param name="scan_beam_topic" value="scan_beam_4"/>
+		<param name="pcl_topic" value="lidar_pcl"/>
+	</node> -->
+</launch>

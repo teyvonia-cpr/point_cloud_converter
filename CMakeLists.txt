@@ -5,13 +5,26 @@ project(point_cloud_converter)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  cmake_modules
   roscpp
   sensor_msgs
+  laser_geometry
+  tf
+  std_msgs
 )
 
 
+find_package(Eigen REQUIRED)
 
-catkin_package()
+catkin_package(
+  # LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    sensor_msgs
+    laser_geometry
+    tf
+    roscpp
+    std_msgs
+)
 
 ###########
 ## Build ##
@@ -22,6 +35,7 @@ catkin_package()
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${EIGEN_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
@@ -31,6 +45,7 @@ include_directories(
 
 ## Declare a cpp executable
 add_executable(point_cloud_converter_node src/converter.cpp)
+add_executable(scan_to_cloud_node src/scan_to_cloud.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -40,6 +55,12 @@ add_executable(point_cloud_converter_node src/converter.cpp)
 target_link_libraries(point_cloud_converter_node
   ${catkin_LIBRARIES}
 )
+
+target_link_libraries(scan_to_cloud_node
+  ${catkin_LIBRARIES}
+)
+
+
 
 #############
 ## Install ##
@@ -62,6 +83,11 @@ install(TARGETS point_cloud_converter_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+install(TARGETS scan_to_cloud_node 
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 foreach(dir launch)
     install(DIRECTORY ${dir}/
